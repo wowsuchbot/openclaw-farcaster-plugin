@@ -1,0 +1,64 @@
+{
+  "id": "farcaster",
+  "name": "Farcaster",
+  "version": "0.1.0",
+  "description": "Native Farcaster channel for OpenClaw",
+  "main": "dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "neynarApiKey": {
+        "type": "string",
+        "description": "Neynar API key for Farcaster operations"
+      },
+      "neynarSignerUuid": {
+        "type": "string",
+        "description": "Neynar signer UUID for posting casts"
+      },
+      "botFid": {
+        "type": "number",
+        "description": "FID of the bot account"
+      },
+      "redashApiUrl": {
+        "type": "string",
+        "description": "Redash API URL for Postgres analytics queries"
+      },
+      "redashApiKey": {
+        "type": "string",
+        "description": "Redash API key"
+      },
+      "watchChannels": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Channel IDs to monitor (e.g., 'cryptoart')"
+      },
+      "autoReplyToMentions": {
+        "type": "boolean",
+        "default": true,
+        "description": "Automatically reply to @mentions"
+      }
+    },
+    "required": ["neynarApiKey", "neynarSignerUuid", "botFid"]
+  },
+  "uiHints": {
+    "neynarApiKey": { "label": "Neynar API Key", "sensitive": true },
+    "neynarSignerUuid": { "label": "Signer UUID", "sensitive": true },
+    "botFid": { "label": "Bot FID", "placeholder": "874249" },
+    "redashApiUrl": { "label": "Redash API URL" },
+    "redashApiKey": { "label": "Redash API Key", "sensitive": true },
+    "watchChannels": { "label": "Watch Channels", "placeholder": "cryptoart, art" },
+    "autoReplyToMentions": { "label": "Auto-reply to mentions" }
+  },
+  "openclaw": {
+    "channel": {
+      "id": "farcaster",
+      "label": "Farcaster",
+      "selectionLabel": "Farcaster (Neynar)",
+      "docsPath": "/channels/farcaster",
+      "blurb": "Decentralized social network via Neynar API and Snapchain Postgres",
+      "order": 10,
+      "aliases": ["fc", "farcaster"]
+    }
+  }
+}

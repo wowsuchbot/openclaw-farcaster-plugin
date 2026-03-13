@@ -1,20 +1,20 @@
 # OpenClaw Farcaster Plugin - Development Plan
 
-## Phase 1: Core Channel Plugin
+## Phase 1: Core Channel Plugin ✅
 
 **Goal:** Register Farcaster as a native OpenClaw channel with basic send/receive.
 
 ### Tasks
 
-- [ ] Create `openclaw.plugin.json` manifest
-- [ ] Implement `registerChannel({ plugin })` with:
+- [x] Create `openclaw.plugin.json` manifest
+- [x] Implement `registerChannel({ plugin })` with:
   - `meta.id`: `farcaster`
   - `meta.label`: `Farcaster`
   - `capabilities.chatTypes`: `["direct", "group"]`
   - `config.listAccountIds` / `config.resolveAccount`
-- [ ] Implement `outbound.sendText` using Neynar API
-- [ ] Wire up inbound via Neynar webhooks or polling
-- [ ] Map Farcaster FIDs to OpenClaw sender IDs
+- [x] Implement `outbound.sendText` using Neynar API
+- [x] Wire up inbound via polling (`poll()` method)
+- [x] Map Farcaster FIDs to OpenClaw sender IDs
 
 ### Config Shape
 
@@ -35,28 +35,24 @@
 }
 ```
 
-## Phase 2: Agent Tools
+## Phase 2: Agent Tools ✅
 
 **Goal:** Expose Farcaster operations as agent tools.
 
-### Tools to Add
+### Tools Implemented
 
-- `farcaster_cast` - Post a cast (text, parent hash, channel)
+- `farcaster_cast` - Post a cast (text, channel, parentHash)
 - `farcaster_reply` - Reply to a cast
-- `farcaster_feed` - Fetch timeline or channel feed
+- `farcaster_feed` - Fetch channel feed
 - `farcaster_search` - Search casts by keyword
 - `farcaster_user` - Look up user profile by FID/username
+- `farcaster_analytics_top_users` - Top channel users via Postgres
+- `farcaster_analytics_channel_stats` - Channel statistics
+- `farcaster_analytics_query` - Custom SQL queries
 
 ### Implementation
 
-```ts
-api.registerTool({
-  name: "farcaster_cast",
-  description: "Post a cast to Farcaster",
-  parameters: { ... },
-  handler: async (params) => { ... },
-});
-```
+All tools registered via `api.registerTool()` with proper schemas.
 
 ## Phase 3: Channel Integration
 
@@ -114,6 +110,23 @@ api.registerTool({
 - **Week 2:** Phase 2 (tools)
 - **Week 3:** Phase 3 (channel watching)
 - **Week 4:** Phase 4 (polish, publish)
+
+## Progress
+
+**2026-03-13:**
+- ✅ Project scaffolding (manifest, package.json, tsconfig)
+- ✅ Type definitions (Cast, User, Channel, etc.)
+- ✅ Neynar client (post, reply, search, feed, user lookup)
+- ✅ Redash/Postgres client (top users, channel stats, custom queries)
+- ✅ Channel implementation (sendText, sendReply, poll)
+- ✅ 8 agent tools registered
+- ✅ Webhook endpoint (`/farcaster/webhook`)
+- ✅ Background service for mention polling
+
+**Next:**
+- [ ] Build and test locally
+- [ ] Link to OpenClaw for integration testing
+- [ ] Add unit tests
 
 ---
 
