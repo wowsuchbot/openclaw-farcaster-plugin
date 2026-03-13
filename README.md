@@ -11,7 +11,9 @@ A native OpenClaw plugin for Farcaster integration.
 
 ## Status
 
-🚧 **Planning phase** - See [PLAN.md](./PLAN.md) for roadmap.
+✅ **Phase 1 complete** - Core channel registered, tools available, webhook endpoint ready.
+
+🚧 **Phase 2 in progress** - Agent tools, channel watching, testing needed.
 
 ## Why a Plugin?
 
